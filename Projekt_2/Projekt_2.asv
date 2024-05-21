@@ -2,22 +2,21 @@ data = dane();
 
 syms Us Gs Uz Gz
 
-disp(data.Gs);
-disp(data.Gz);
+% disp(data.Gs);
+% disp(data.Gz);
 
 K_stat_s=double(wzm_stat_Gs(data.Gs));
 K_stat_z=double(wzm_stat_Gz(data.Gz));
 % disp(double(K_stat_s));
 % disp(double(K_stat_z));
 
-[b, c] = row_roznic(data.Gztf);
+yk = row_roznic(data.Gztf);
 
 figure;
 hold on;
 [yc, tc]=step(data.Gstf, [0 50]);
 [yd, td]=step(data.Gztf, [0 50]);
-plot(tc,yc);
-stairs(td,yd);
+plot(tc,yc,t)
 grid on;
 ylabel('y');
 xlabel('t');
@@ -27,7 +26,7 @@ set(gca,'YTickLabel',etykiety);
 etykiety = get(gca,'XTickLabel');
 etykiety = strrep(etykiety (:),'.',',');
 set(gca,'XTickLabel',etykiety);
-legend('Odpowiedź ciągła', 'Odpowiedź dyskretna', Location='southeast');
+legend('Odpowiedź ciągła', 'Odpowiedź dyskretna');
 exportgraphics(gcf,'wykresy/odpowiedzi_skokowe.png','Resolution',400);
 
 K_k = 0.5878;
