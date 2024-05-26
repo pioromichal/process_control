@@ -7,15 +7,13 @@ disp(data.Gz);
 
 K_stat_s=double(wzm_stat_Gs(data.Gs));
 K_stat_z=double(wzm_stat_Gz(data.Gz));
-% disp(double(K_stat_s));
-% disp(double(K_stat_z));
 
 [b, c] = row_roznic(data.Gztf);
 
-figure;
-hold on;
 [yc, tc]=step(data.Gstf, [0 50]);
 [yd, td]=step(data.Gztf, [0 50]);
+figure;
+hold on;
 plot(tc,yc);
 stairs(td,yd);
 grid on;
@@ -38,10 +36,10 @@ PID = pidstd(K_k, T_i, T_d);
 T = feedback(data.Gstf*PID, 1);
 t = 0:0.01:100;
 
-figure;
 [y, t] = step(T, t);
-plot(t, y);
-grid on;
+% figure;
+% plot(t, y);
+% grid on;
 
 for i=1:5
     y_max(i)=max(y(2000*(i-1)+1:2000*i));
@@ -69,9 +67,9 @@ T_d=0.12*T_k;
 PIDS=pidstd(K_r, T_i, T_d);
 T = feedback(data.Gstf*PIDS, 1);
 t = 0:0.01:100;
-figure;
-step(T, t);
-grid on;
+% figure;
+% step(T, t);
+% grid on;
 
 % PID dyskretny trapewzowy
 
@@ -82,4 +80,26 @@ r_0=K*(1+T/(2*T_i)+T_d/T);
 r_1=K*(T/(2*T_i)-2*T_d/T-1);
 r_2=K*T_d/T;
 
-[y, t]=pid_d_sim(r_0,r_1,r_2,yl);
+[k, y, y_zad, u]=pid_d_sim(r_0,r_1,r_2,b,c,300,1);
+
+figure;
+hold on;
+stairs(y);
+stairs(y_zad);
+grid on;
+
+[k, y, y_zad, u] = dmc_d_sim(85,85,85,1,b,c,300,1);
+
+figure;
+hold on;
+stairs(y);
+stairs(y_zad);
+grid on;
+legend("y","y_zad");
+
+figure;
+hold on;
+stairs(y);
+stairs(u);
+grid on;
+legend("y","u");
