@@ -12,21 +12,21 @@ K_stat_z=double(wzm_stat_Gz(data.Gz));
 
 [yc, tc]=step(data.Gstf, [0 50]);
 [yd, td]=step(data.Gztf, [0 50]);
-figure;
-hold on;
-plot(tc,yc);
-stairs(td,yd);
-grid on;
-ylabel('y');
-xlabel('t');
-etykiety = get(gca,'YTickLabel');
-etykiety = strrep(etykiety (:),'.',',');
-set(gca,'YTickLabel',etykiety);
-etykiety = get(gca,'XTickLabel');
-etykiety = strrep(etykiety (:),'.',',');
-set(gca,'XTickLabel',etykiety);
-legend('Odpowiedź ciągła', 'Odpowiedź dyskretna', Location='southeast');
-exportgraphics(gcf,'wykresy/odpowiedzi_skokowe.png','Resolution',400);
+% figure;
+% hold on;
+% plot(tc,yc);
+% stairs(td,yd);
+% grid on;
+% ylabel('y');
+% xlabel('t');
+% etykiety = get(gca,'YTickLabel');
+% etykiety = strrep(etykiety (:),'.',',');
+% set(gca,'YTickLabel',etykiety);
+% etykiety = get(gca,'XTickLabel');
+% etykiety = strrep(etykiety (:),'.',',');
+% set(gca,'XTickLabel',etykiety);
+% legend('Odpowiedź ciągła', 'Odpowiedź dyskretna', Location='southeast');
+% exportgraphics(gcf,'wykresy/odpowiedzi_skokowe.png','Resolution',400);
 
 K_k = 0.5878;
 T_i = 1000000;
@@ -82,11 +82,11 @@ r_2=K*T_d/T;
 
 [k, y, y_zad, u]=pid_d_sim(r_0,r_1,r_2,b,c,300,1);
 
-figure;
-hold on;
-stairs(y);
-stairs(y_zad);
-grid on;
+% figure;
+% hold on;
+% stairs(y);
+% stairs(y_zad);
+% grid on;
 
 [k, y, y_zad, u] = dmc_d_sim(85,85,85,1,b,c,300,1);
 
