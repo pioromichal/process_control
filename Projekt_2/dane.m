@@ -20,4 +20,6 @@ data.Gs=collect(data.Gs)*exp(-data.Gstf.OutputDelay*s);
 data.Gz=poly2sym(data.Gztf.Numerator, z);
 data.Gz=data.Gz/poly2sym(data.Gztf.Denominator, z);
 data.Gz=collect(data.Gz)*z^(-data.Gztf.OutputDelay);
+
+[data.b, data.c] = row_roznic(data.Gztf);
 end
