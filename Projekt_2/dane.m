@@ -1,4 +1,5 @@
 function data=dane()
+% Stworzenie struktury z otrzymanymi danymi zadania
 s = tf('s');
 data = struct();
 data.K_O=3.8;
@@ -9,17 +10,19 @@ data.T_p=0.5;
 data.Gsnum=data.K_O*exp(-data.T_O*s);
 data.Gsden=(data.T_1*s+1)*(data.T_2*s+1);
 data.Gstf=data.Gsnum/data.Gsden;
+% Zamiana na transmitancję dyskretną
 data.Gztf=c2d(data.Gstf,data.T_p,'zoh');
 
+% Symboliczny zapis obu transmitancji
 syms s z
 data.Gs=poly2sym(data.Gstf.Numerator, s);
-data.Gs=data.Gs/poly2sym(data.Gstf.Denominator, s)
+data.Gs=data.Gs/poly2sym(data.Gstf.Denominator, s);
 data.Gs=collect(data.Gs)*exp(-data.Gstf.OutputDelay*s);
-
 
 data.Gz=poly2sym(data.Gztf.Numerator, z);
 data.Gz=data.Gz/poly2sym(data.Gztf.Denominator, z);
 data.Gz=collect(data.Gz)*z^(-data.Gztf.OutputDelay);
 
+% Obliczenie parametrów równania różnicowego
 [data.b, data.c] = row_roznic(data.Gztf);
 end

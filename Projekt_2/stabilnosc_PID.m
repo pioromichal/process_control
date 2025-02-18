@@ -20,8 +20,9 @@ Km(9)=1.006353;
 Km(10)=1.004614;
 Km(11)=1.003078;
 
-for i=11:11
-    [k, y, y_zad, u] = pid_d_sim(r_0,r_1,r_2,data.b,data.c,10000,1,Tm(i),Km(i));
+for i=1:11
+    [k,y,y_zad,u]=pid_d_sim(r_0,r_1,r_2,data.b,data.c, ...
+        10000,1,Tm(i),Km(i));
     figure;
     hold on;
     stairs(y);
@@ -32,16 +33,17 @@ for i=11:11
     xlabel('k');
 end
 
-% figure;
-% plot(Tm,Km,'-*');
-% pbaspect([16 9 1]);
-% ylabel('K_o/K_{o}^{nom}');
-% xlabel('T_o/T_{o}^{nom}');
-% etykiety = get(gca,'YTickLabel');
-% etykiety = strrep(etykiety (:),'.',',');
-% set(gca,'YTickLabel',etykiety);
-% etykiety = get(gca,'XTickLabel');
-% etykiety = strrep(etykiety (:),'.',',');
-% set(gca,'XTickLabel',etykiety);
-% legend("krzywa stabilności DMC",Location="southeast");
-% exportgraphics(gcf,'wykresy/stabilnosc_PID.png','Resolution',400);
+figure;
+plot(Tm,Km,'-*');
+pbaspect([16 9 1]);
+grid on;
+ylabel('K_o/K_{o}^{nom}');
+xlabel('T_o/T_{o}^{nom}');
+etykiety = get(gca,'YTickLabel');
+etykiety = strrep(etykiety (:),'.',',');
+set(gca,'YTickLabel',etykiety);
+etykiety = get(gca,'XTickLabel');
+etykiety = strrep(etykiety (:),'.',',');
+set(gca,'XTickLabel',etykiety);
+legend("krzywa stabilności PID",Location="southeast");
+exportgraphics(gcf,'wykresy/stabilnosc_PID.png','Resolution',400);

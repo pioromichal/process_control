@@ -6,21 +6,18 @@ if nargin < 8
 end
 delay = find(c == 0, 1, 'last');
 
-
-
 % Zmiana opóźnienia obiektu
 if Tm>1
     c=[zeros(1,int32((Tm-1)*delay)), c];
 end
+
+% Parametry n, m, T_o obiektu
 m=length(c);
 n=length(b);
 
+% Warunki początkowe
 k_start=max([n m])+1;
 k_kon=k_start+k_num;
-
-
-
-% Warunki początkowe
 u(1:k_start-1)=0;
 y(1:k_start-1)=0;
 e(1:k_start-1)=0;

@@ -57,7 +57,7 @@ T_d=0.12*T_k;
 % Symulacja otrzymanego ciągłego regulatora PID
 PIDS=pidstd(K_r, T_i, T_d);
 T = feedback(data.Gstf*PIDS, 1);
-t = 0:0.01:100;
+t = 0:0.01:70;
 [y, t] = step(T, t);
 
 figure;
@@ -86,13 +86,14 @@ r_2=K*T_d/T;
 
 
 % Symulacja dyskretnego regulatora PID
-[k, y, y_zad, u]=pid_d_sim(r_0,r_1,r_2,data.b,data.c,300,1);
+[k, y, y_zad, u]=pid_d_sim(r_0,r_1,r_2,data.b,data.c,186,1);
 
 % Przezentacja wyników symulacji na wykresie
 figure;
 hold on;
 stairs(y);
 stairs(y_zad);
+stairs(u);
 grid on;
 pbaspect([16 9 1]);
 ylabel('y');
@@ -103,5 +104,5 @@ set(gca,'YTickLabel',etykiety);
 etykiety = get(gca,'XTickLabel');
 etykiety = strrep(etykiety (:),'.',',');
 set(gca,'XTickLabel',etykiety);
-legend('Wyjście obiektu','Wartość zadana', Location='southeast');
+legend('y','y_{zad}', 'u', Location='southeast');
 exportgraphics(gcf,'wykresy/dyskretny_PID.png','Resolution',400);

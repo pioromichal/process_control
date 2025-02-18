@@ -3,6 +3,46 @@ data = dane();
 
 k_num=54;
 
+% Horyzont dynamiki D
+D=132;
+N=D;
+N_u = N;
+figure;
+hold on;
+[k, y, y_zad, u] = dmc_d_sim(N_u,N,D,1,data.b,data.c,k_num,1);
+stairs(y);
+stairs(y_zad,':');
+grid on;
+pbaspect([16 9 1]);
+ylabel('y');
+xlabel('t');
+etykiety = get(gca,'YTickLabel');
+etykiety = strrep(etykiety (:),'.',',');
+set(gca,'YTickLabel',etykiety);
+etykiety = get(gca,'XTickLabel');
+etykiety = strrep(etykiety (:),'.',',');
+set(gca,'XTickLabel',etykiety);
+legend("y: D=132","y_{zad}",Location="southeast");
+exportgraphics(gcf,'wykresy/strojenie_DMC_D_y.png','Resolution',400);
+
+figure;
+hold on;
+stairs(u);
+grid on;
+pbaspect([16 9 1]);
+ylabel('y');
+xlabel('t');
+etykiety = get(gca,'YTickLabel');
+etykiety = strrep(etykiety (:),'.',',');
+set(gca,'YTickLabel',etykiety);
+etykiety = get(gca,'XTickLabel');
+etykiety = strrep(etykiety (:),'.',',');
+set(gca,'XTickLabel',etykiety);
+legend("u: D=132");
+exportgraphics(gcf,'wykresy/strojenie_DMC_D_u.png','Resolution',400);
+
+
+
 % Dobór parametru N
 N=[50,19,18,15];
 N_u = N;
@@ -93,7 +133,7 @@ exportgraphics(gcf,'wykresy/strojenie_DMC_Nu_u.png','Resolution',400);
 
 
 % Dobór parametru lambda
-lambda = [3,2,1,0.5];
+lambda = [10,3,1,0.5];
 figure;
 hold on;
 for i=1:length(lambda)
@@ -112,7 +152,7 @@ set(gca,'YTickLabel',etykiety);
 etykiety = get(gca,'XTickLabel');
 etykiety = strrep(etykiety (:),'.',',');
 set(gca,'XTickLabel',etykiety);
-legend("y: lambda=5","y: lambda=2","y: lambda=1","y: lambda=0,5","y_{zad}",Location="southeast");
+legend("y: \lambda=5","y: \lambda=3","y: \lambda=1","y: \lambda=0,5","y_{zad}",Location="southeast");
 exportgraphics(gcf,'wykresy/strojenie_DMC_lambda_y.png','Resolution',400);
 
 figure;
@@ -130,5 +170,5 @@ set(gca,'YTickLabel',etykiety);
 etykiety = get(gca,'XTickLabel');
 etykiety = strrep(etykiety (:),'.',',');
 set(gca,'XTickLabel',etykiety);
-legend("u: lambda=5","u: lambda=2","u: lambda=1","u: lambda=0,5");
+legend("u: \lambda=5","u: \lambda=3","u: \lambda=1","u: \lambda=0,5");
 exportgraphics(gcf,'wykresy/strojenie_DMC_lambda_u.png','Resolution',400);

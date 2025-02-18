@@ -1,4 +1,5 @@
-function [k,y,y_zad,u,z] = gpc_d_sim(Nu,N,lambda,b,c,k_num,y_zad_val,Tm,Km,z_val)
+function [k,y,y_zad,u,z] = gpc_d_sim(Nu,N,lambda,b,c,k_num, ...
+    y_zad_val,Tm,Km,z_val)
 
 if nargin < 8
     Tm=1;
@@ -7,13 +8,14 @@ if nargin < 8
 elseif nargin < 10
     z_val=0;
 end
-delay = find(c == 0, 1, 'last');
 
+% Parametry n, m, T_o modelu
+delay = find(c == 0, 1, 'last');
 n=length(b);
 m=length(c);
-k_start=max([n m])+1;
 
 % Warunki początkowe skoku
+k_start=max([n m])+1;
 u(1:k_start-1)=0;
 delta_u(1:k_start-1)=0;
 y(1:k_start-1)=0;
@@ -25,16 +27,6 @@ for k=k_start:1:k_start+N
 end
 
 s=y(k_start+1:end)';
-
-
-% s=zeros(N,1);
-% for j=1:1:N
-%     if j==0
-%         s(j)=sum(c(1:min(j,m)));
-%     else
-%         s(j)=sum(c(1:min(j,m)))-sum(b(1:min(j-1,n))*s(1,j-1));
-%     end
-% end
 
 % Wyznaczenie Macierzy M
 M=zeros(N, Nu);

@@ -1,4 +1,5 @@
-function [k,y,y_zad,u,z] = dmc_d_sim(Nu,N,D,lambda,b,c,k_num,y_zad_val,Tm,Km, z_val)
+function [k,y,y_zad,u,z] = dmc_d_sim(Nu,N,D,lambda,b,c,k_num, ...
+    y_zad_val,Tm,Km, z_val)
 if nargin < 9
     Tm=1;
     Km=1;
@@ -7,6 +8,7 @@ elseif nargin < 11
     z_val=0;
 end
 
+% Parametry n, m, T_o modelu
 delay = find(c == 0, 1, 'last');
 n=length(b);
 m=length(c);

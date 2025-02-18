@@ -16,17 +16,18 @@ Km(9)=0.93365;
 Km(10)=0.90245;
 Km(11)=0.88508;
 
-% for i=1:11
-%     [k, y, y_zad, u] = dmc_d_sim(2,19,132,3,data.b,data.c,10000,1,Tm(i),Km(i));
-%     figure;
-%     hold on;
-%     stairs(y);
-%     stairs(y_zad);
-%     grid on;
-%     pbaspect([16 9 1]);
-%     ylabel('y');
-%     xlabel('k');
-% end
+for i=1:11
+    [k, y, y_zad, u] = dmc_d_sim(2,19,132,3,data.b,data.c, ...
+        10000,1,Tm(i),Km(i));
+    figure;
+    hold on;
+    stairs(y);
+    stairs(y_zad);
+    grid on;
+    pbaspect([16 9 1]);
+    ylabel('y');
+    xlabel('k');
+end
 
 figure;
 plot(Tm,Km,'-*');
